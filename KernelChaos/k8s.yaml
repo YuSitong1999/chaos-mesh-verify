@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cmv
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  namespace: cmv
+  name: demo
+  labels:
+    app: demo
+spec:
+  containers:
+    - name: container1
+      image: localhost:5000/chaos-mesh-verify:KernelChaos-demo
+      imagePullPolicy: Always
+    - name: container2
+      image: localhost:5000/chaos-mesh-verify:KernelChaos-demo
+      imagePullPolicy: Always
