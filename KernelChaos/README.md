@@ -34,24 +34,27 @@ The last right version is 2.2.3
 ## Verify
 
 ```shell
-# Build in windows Command Prompt
-SET CGO_ENABLED=0&&   SET GOOS=linux&&  SET GOARCH=amd64&&   go build -o demo
+cd KernelChaos
+
+# Build in Linux
+go build -o demo
+
 # Build Container
 docker build -t localhost:5000/chaos-mesh-verify:KernelChaos-demo .
 
-# Send to VPS and push to local Docker Registry
-docker save localhost:5000/chaos-mesh-verify:KernelChaos-demo -o KernelChaos.tar
-
-docker load -i KernelChaos.tar
+# push to local Docker Registry
 docker push localhost:5000/chaos-mesh-verify:KernelChaos-demo
 
 # create namespace
 kubectl create ns cmv
+
 # apply Pod in k8s
 kubectl apply -f k8s.yaml
+
 # apply KernelChaos in k8s
 kubectl apply -f bio-pod.yaml
 kubectl apply -f bio-container.yaml
+
 # recover KernelChaos
 kubectl delete -f bio-pod.yaml
 kubectl delete -f bio-container.yaml
